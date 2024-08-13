@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import { Navlinks } from '../components'
 import { BsCart3, BsMoonFill, BsSunFill } from 'react-icons/bs';
 import { FaBarsStaggered } from 'react-icons/fa6';
@@ -21,6 +21,7 @@ export default function Navbar() {
   const navigate = useNavigate()
   const { User} = userGlobal()
   const {NumberofCartitems } = useCartGlobalContext()
+  
 
 
    const [theme,setTheme]=useState(getThemeLocalStorage())

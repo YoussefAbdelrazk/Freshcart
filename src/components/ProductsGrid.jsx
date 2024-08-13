@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
-
+import { FaHeart } from "react-icons/fa";
 export default function ProductsGrid() {
   const { products } = useLoaderData();
 
@@ -13,7 +13,7 @@ export default function ProductsGrid() {
           <Link
             key={product.id}
             to={`/products/${product.id}`}
-            className="card w-full shadow-xl hover:shadow-2xl transition duration-300"
+            className="card w-full shadow-xl hover:shadow-2xl transition duration-300 relative"
           >
             <figure className="px-4 pt-4">
               <img
@@ -85,9 +85,12 @@ export default function ProductsGrid() {
                 </p>
               </div>
             </div>
+            
           </Link>
+          
         );
       })}
+      
     </div>
   );
 }

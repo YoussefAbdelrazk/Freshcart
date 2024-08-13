@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { useCartGlobalContext } from "../context/cartContext";
 import { toast } from "react-toastify";
+import { useWishList } from "../context/wishListContext";
 const url = "/api/v1/products";
 export const loader = async ({ params }) => {
   const { id } = params;
@@ -15,16 +16,13 @@ export const loader = async ({ params }) => {
 
 export default function SingleProduct() {
   const { AddProduct } = useCartGlobalContext();
+  const {AddWishlist} = useWishList()
 
-  const [amount, setAmount] = useState(1);
 
-  const handleAmount = (e) => {
-    setAmount(parseInt(e.target.value));
-  };
+
 
   const { product } = useLoaderData();
 
-  console.log(product);
 
   const { id, title, imageCover, price, description, category, images ,ratingsAverage} =
     product;
@@ -38,6 +36,17 @@ export default function SingleProduct() {
       toast.error("can not add product ");
     }
   };
+
+  const handleAddWishlist = async(id) => {
+    let response = await AddWishlist(id)
+      if(response) {
+        toast.success(response.message);
+      }else{
+        toast.error("can not add wishlist ");
+      }
+    console.log(response)
+  }
+  
 
   return (
     <section>
@@ -215,12 +224,18 @@ export default function SingleProduct() {
               {/* End Input Number */}
             </>
           </div>
-          <div className="mt-10">
+          <div className="mt-10 flex space-x-10 ">
             <button
               onClick={() => handAddProduct(id)}
               className="btn btn-secondary btn-md"
             >
               Add to Cart
+            </button>
+            <button
+              onClick={() => handleAddWishlist(id)}
+              className="btn btn-primary btn-md"
+            >
+              Add to WishList
             </button>
           </div>
         </div>

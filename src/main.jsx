@@ -8,13 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./context/userContext.jsx";
 import { CartProvider } from "./context/cartContext.jsx";
+import { WishlistProvider } from "./context/wishListContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <Provider store={store}>
       <UserProvider>
         <CartProvider>
-          <App />
+          <WishlistProvider>
+              <App />
+          </WishlistProvider>
+        
         </CartProvider>
         <ToastContainer position="top-center" />
       </UserProvider>

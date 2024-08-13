@@ -1,9 +1,26 @@
 import { toast } from "react-toastify";
 import { SectionTitle } from "../components";
 import { useCartGlobalContext } from "../context/cartContext";
+import { customFetch } from "../utils";
+import { useLoaderData } from "react-router-dom";
+
+ export const loader = async() => {
+
+  let {data} = await customFetch.get('/api/v1/cart',{
+    headers:{
+      token : localStorage.getItem('token')
+    }
+  })
+
+
+  return {numOfCartItems:data.numOfCartItems ,products : data.data.products ,totalCartPrice:data.data.totalCartPrice }
+  
+}
+
 
 export default function Cart() {
   const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct} = useCartGlobalContext()
+
 
   const HandleDeleteProduct = async(id) => {
   const res = await DeleteProduct(id)
