@@ -33,10 +33,11 @@ export default function Register() {
 
           function Register(values){
                 customFetch.post(url,values).then((response)=>{
-                  console.log(response)
-                  if(response.data.message === "success"){
-                    localStorage.setItem("token", response.data.token)
-                    localStorage.setItem("name",response.data.user.name)
+                
+                  if(response?.data.message === "success"){
+                    localStorage.setItem("token", response?.data.token)
+                    localStorage.setItem("name",response?.data.user.name)
+                    setName(response?.data.user.name)
                     toast.success(" Account successfully registered")
                     navigate('/')
                   }

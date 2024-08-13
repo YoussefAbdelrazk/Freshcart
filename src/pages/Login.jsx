@@ -7,6 +7,7 @@ import { useState } from "react";
 import { customFetch } from "../utils";
 import { useDispatch } from "react-redux";
 import { useCartGlobalContext } from "../context/cartContext";
+import { userGlobal } from "../context/userContext";
 
 
 
@@ -15,6 +16,7 @@ const url = "/api/v1/auth/signin";
 export default function Login() {
 
   const {GetUserCart} = useCartGlobalContext()
+  const {setName} = userGlobal()
 
   const navigate = useNavigate()
   // const[ErrorMessage,setErrorMessage] =useState('')
@@ -31,11 +33,12 @@ export default function Login() {
     customFetch
       .post(url, values)
       .then((response) => {
-        console.log(response);
+        
         if (response.data.message === "success") {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("name",response.data.user.name)
-         toast.success(`Welcome ${response.data.user.name}`);
+          localStorage.setItem("token", response?.data.token);
+          localStorage.setItem("name",response?.data.user.name)
+          setName(response?.data.user.name)
+         toast.success(`Welcome ${response?.data.user.name}`);
          GetUserCart()
           navigate("/");
         }
