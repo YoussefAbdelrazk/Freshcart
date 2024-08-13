@@ -66,7 +66,7 @@ export default function Register() {
   return (
     <section className=" grid h-screen place-items-center">
 
-      <Form onSubmit={handleSubmit}  className="card shadow-lg w-[30rem] p-8 bg-base-100 flex flex-col gap-y-4 ">
+      <Form onSubmit={handleSubmit}  className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 ">
         <h4 className=" font-bold text-3xl text-center">Register</h4>
         <FormInput  type='text' name='name' label='UserName' value={values.name} handleChange={handleChange} handleBlur={handleBlur} touched={touched}    />
                 {errors.name && touched.name &&         <div role="alert" className="alert alert-error">
