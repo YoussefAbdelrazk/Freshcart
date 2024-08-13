@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
+@layer components {
   .align-element{
-    @apply max-w-6xl mx-auto 
+    @apply max-w-6xl mx-auto px-8
   }
 }

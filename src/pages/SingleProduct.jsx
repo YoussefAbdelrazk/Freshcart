@@ -52,7 +52,7 @@ export default function SingleProduct() {
         </ul>
       </div>
       {/* product */}
-      <div className=" mt-6 grid gapy-8 lg:grid-cols-2 lg:gap-x-16">
+      <div className=" mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16">
         {/* images Slider */}
 
         <div className=" carousel h-[28rem] carousel-center p-4 space-x-4 bg-neutral rounded-box">
@@ -60,7 +60,7 @@ export default function SingleProduct() {
             return (
               <div key={image} className=" carousel-item">
                 <img
-                  className=" object-cover rounded-box w-full "
+                  className=" w-96  object-cover rounded-box lg:w-full "
                   src={image}
                   alt=""
                 />

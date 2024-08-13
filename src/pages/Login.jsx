@@ -16,7 +16,7 @@ const url = "/api/v1/auth/signin";
 export default function Login() {
 
   const {GetUserCart} = useCartGlobalContext()
-  const {setName} = userGlobal()
+  const {setName,setUser} = userGlobal()
 
   const navigate = useNavigate()
   // const[ErrorMessage,setErrorMessage] =useState('')
@@ -36,6 +36,7 @@ export default function Login() {
         
         if (response.data.message === "success") {
           localStorage.setItem("token", response?.data.token);
+          setUser(response?.data.token)
           localStorage.setItem("name",response?.data.user.name)
           setName(response?.data.user.name)
          toast.success(`Welcome ${response?.data.user.name}`);

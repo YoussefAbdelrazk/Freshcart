@@ -11,7 +11,7 @@ const url = '/api/v1/auth/signup'
 export default function Register() {
     const[ErrorMessage,setErrorMessage] =useState('')
     const navigate = useNavigate()
-    const{setName}= userGlobal()
+    const{setName,setUser}= userGlobal()
 
 
   let validate = Yup.object().shape({
@@ -36,6 +36,7 @@ export default function Register() {
                 
                   if(response?.data.message === "success"){
                     localStorage.setItem("token", response?.data.token)
+                    setUser(response?.data.token)
                     localStorage.setItem("name",response?.data.user.name)
                     setName(response?.data.user.name)
                     toast.success(" Account successfully registered")
