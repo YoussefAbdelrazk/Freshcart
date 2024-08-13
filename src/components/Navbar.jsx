@@ -3,8 +3,9 @@ import { Navlinks } from '../components'
 import { BsCart3, BsMoonFill, BsSunFill } from 'react-icons/bs';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
 import { userGlobal } from "../context/userContext";
+import { useCartGlobalContext } from "../context/cartContext";
 
 const themes = {
   winter:'winter',
@@ -19,8 +20,9 @@ const getThemeLocalStorage = () => {
 export default function Navbar() {
   const navigate = useNavigate()
   const { User} = userGlobal()
+  const {NumberofCartitems } = useCartGlobalContext()
 
-  const {numItemsInCart} = useSelector((state)=>state.cartState)
+
    const [theme,setTheme]=useState(getThemeLocalStorage())
 
    const handleTheme = () => {
@@ -79,7 +81,7 @@ export default function Navbar() {
               <div className=" indicator">
                 <BsCart3 className="h-6 w-6"/>
                 <span className=" badge badge-sm badge-primary indicator-item">
-                    {numItemsInCart}
+                    {NumberofCartitems}
                 </span>
 
               </div>

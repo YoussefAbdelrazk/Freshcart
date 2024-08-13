@@ -6,13 +6,15 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { customFetch } from "../utils";
 import { useDispatch } from "react-redux";
+import { useCartGlobalContext } from "../context/cartContext";
 
 
 
 
 const url = "/api/v1/auth/signin";
 export default function Login() {
-  const dispatch = useDispatch()
+
+  const {GetUserCart} = useCartGlobalContext()
 
   const navigate = useNavigate()
   // const[ErrorMessage,setErrorMessage] =useState('')
@@ -34,6 +36,7 @@ export default function Login() {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("name",response.data.user.name)
          toast.success(`Welcome ${response.data.user.name}`);
+         GetUserCart()
           navigate("/");
         }
       })
