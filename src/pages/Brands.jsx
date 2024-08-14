@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { SectionTitle } from "../components";
 import { customFetch } from "../utils";
+import { Helmet } from 'react-helmet-async';
 
     export const loader = async()=>{
       const {data} = await customFetch.get('/api/v1/brands')
@@ -9,9 +10,12 @@ import { customFetch } from "../utils";
 
 export default function Brands() {
   const{brands} = useLoaderData()
-  console.log(brands)
+
   return (
     <section>
+        <Helmet>
+        <title>Brands</title>
+      </Helmet>
       <SectionTitle text= 'Brands' />
       <div className="grid pt-12 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {

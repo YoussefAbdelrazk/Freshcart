@@ -8,6 +8,7 @@ import { customFetch } from "../utils";
 import { useDispatch } from "react-redux";
 import { useCartGlobalContext } from "../context/cartContext";
 import { userGlobal } from "../context/userContext";
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -67,6 +68,9 @@ export default function Login() {
 
   return (
     <section className=" grid h-screen place-items-center">
+        <Helmet>
+        <title>Login</title>
+      </Helmet>
       <Form
         onSubmit={handleSubmit}
         method="post"

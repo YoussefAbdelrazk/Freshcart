@@ -13,6 +13,7 @@ import {  loader as WishListLoader} from './pages/WishList'
 import {  loader as CartLoader} from './pages/Cart'
 import { UserProvider } from './context/userContext'
 import ProtectRoute from './components/ProtectRoute'
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 function App() {
 
@@ -35,7 +36,13 @@ function App() {
   ])
 
       return( <>
-            <RouterProvider router={router}></RouterProvider>
+      <HelmetProvider>
+      <RouterProvider router={router}></RouterProvider>
+      <Helmet>
+        <title>FreshCart</title>
+      </Helmet>
+      </HelmetProvider>
+            
             </>
           )
     

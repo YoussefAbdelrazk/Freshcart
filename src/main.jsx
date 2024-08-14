@@ -9,10 +9,14 @@ import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./context/userContext.jsx";
 import { CartProvider } from "./context/cartContext.jsx";
 import { WishlistProvider } from "./context/wishListContext.jsx";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
-    <Provider store={store}>
+  <HelmetProvider>
+
+  
       <UserProvider>
         <CartProvider>
           <WishlistProvider>
@@ -22,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </CartProvider>
         <ToastContainer position="top-center" />
       </UserProvider>
-    </Provider>
+      </HelmetProvider>
+    
   </>
 );

@@ -6,6 +6,7 @@ import { customFetch } from "../utils";
 import { useLoaderData } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { useState } from "react";
+import { Helmet } from 'react-helmet-async';
 
 export const loader = async()=>{
   const {data} = await customFetch.get('/api/v1/wishlist',{
@@ -52,6 +53,9 @@ export default function WishList() {
 
   return (
     <section>
+        <Helmet>
+        <title>WishList</title>
+      </Helmet>
 
       <SectionTitle text='Fav Products' />
       <div className="grid pt-12 md:grid-cols-2 lg:grid-cols-3 gap-8">

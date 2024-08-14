@@ -4,6 +4,7 @@ import { useCartGlobalContext } from "../context/cartContext";
 import { customFetch } from "../utils";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import { Helmet } from 'react-helmet-async';
 
  export const loader = async() => {
 
@@ -20,7 +21,7 @@ import { useState } from "react";
 
 
 export default function Cart() {
-  const [Loading1, setLoading1] = useState(false)
+
   const [Loading2, setLoading2] = useState(false)
   const [Loading3, setLoading3] = useState(false)
   const [Productid, setProductid] = useState(0)
@@ -60,6 +61,10 @@ export default function Cart() {
   
   return (
     <section>
+        <Helmet>
+        <title>Cart</title>
+        </Helmet>
+      
       <SectionTitle text=' shopping cart'/>
 
       <div className="py-24 relative">

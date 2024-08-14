@@ -7,7 +7,7 @@ export default function ProductsGrid() {
     <div className=" grid pt-12 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((product) => {
         const { title, imageCover, price, ratingsAverage } = product;
-        console.log(product);
+;
 
         return (
           <Link

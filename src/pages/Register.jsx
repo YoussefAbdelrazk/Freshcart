@@ -6,6 +6,7 @@ import { customFetch } from "../utils";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { userGlobal } from "../context/userContext";
+import { Helmet } from 'react-helmet-async';
 
 const url = '/api/v1/auth/signup'
 export default function Register() {
@@ -68,6 +69,9 @@ export default function Register() {
 
   return (
     <section className=" grid h-screen place-items-center">
+        <Helmet>
+        <title>Register</title>
+      </Helmet>
 
       <Form onSubmit={handleSubmit}  className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 ">
         <h4 className=" font-bold text-3xl text-center">Register</h4>

@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom"
 import { customFetch } from "../utils"
 import { SectionTitle } from "../components"
+import { Helmet } from 'react-helmet-async';
 
 export const loader = async ()=>{
   const {data} = await customFetch.get('/api/v1/categories')
@@ -14,6 +15,9 @@ export default function Categories() {
 
   return (
     <section>
+        <Helmet>
+        <title>Categories</title>
+      </Helmet>
       <SectionTitle text='categories'/>
       <div className="grid pt-12 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {categories.map((cate)=>{
