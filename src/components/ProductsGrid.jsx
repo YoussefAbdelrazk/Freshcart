@@ -1,20 +1,42 @@
 import { Link, useLoaderData } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import { useState } from "react";
+import { useWishList } from "../context/wishListContext";
+import { toast } from "react-toastify";
+
 export default function ProductsGrid() {
+   const[ isclicked , setIsclicked] = useState(false)
+   const[ productID , setProductID] = useState(0)
   const { products } = useLoaderData();
+  const {AddWishlist} = useWishList()
+
+  const handleclick = async(id) => {
+    setProductID(id)
+    const res = await AddWishlist(id)
+    if(res){
+      setIsclicked(!isclicked); 
+      toast.success(res.message);
+    }else{
+      toast.error("can not add wishlist ");
+    }
+    
+  }
+  
 
   return (
     <div className=" grid pt-12 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((product) => {
-        const { title, imageCover, price, ratingsAverage } = product;
+        const {id, title, imageCover, price, ratingsAverage } = product;
+        
 ;
 
         return (
-          <Link
+          <div
             key={product.id}
-            to={`/products/${product.id}`}
+            
             className="card w-full shadow-xl hover:shadow-2xl transition duration-300 relative"
           >
+            <Link to={`/products/${product.id}`}>
             <figure className="px-4 pt-4">
               <img
                 src={imageCover}
@@ -84,9 +106,12 @@ export default function ProductsGrid() {
                   5
                 </p>
               </div>
+
             </div>
-            
-          </Link>
+            </Link>
+          
+            <span onClick={()=>handleclick(id)}  className={`absolute cursor-pointer right-5 ${ productID==id&& isclicked && 'text-red-700'}`}> <FaHeart   size={30} /> </span>
+          </div>
           
         );
       })}

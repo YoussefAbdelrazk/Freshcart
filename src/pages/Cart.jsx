@@ -1,23 +1,10 @@
 import { toast } from "react-toastify";
 import { SectionTitle } from "../components";
 import { useCartGlobalContext } from "../context/cartContext";
-import { customFetch } from "../utils";
-import { useLoaderData } from "react-router-dom";
-import { useState } from "react";
+
+
+import { useState ,useEffect} from "react";
 import { Helmet } from 'react-helmet-async';
-
- export const loader = async() => {
-
-  let {data} = await customFetch.get('/api/v1/cart',{
-    headers:{
-      token : localStorage.getItem('token')
-    }
-  })
-
-
-  return {numOfCartItems:data.numOfCartItems ,products : data.data.products ,totalCartPrice:data.data.totalCartPrice }
-  
-}
 
 
 export default function Cart() {
@@ -25,9 +12,13 @@ export default function Cart() {
   const [Loading2, setLoading2] = useState(false)
   const [Loading3, setLoading3] = useState(false)
   const [Productid, setProductid] = useState(0)
-  const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct} = useCartGlobalContext()
+  const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct ,GetUserCart} = useCartGlobalContext()
 
 
+
+  
+  
+  
 
   const handleUpdateProduct = async(id,newcount) => {
     setLoading2(true)
@@ -53,6 +44,7 @@ export default function Cart() {
   }
 
   if(allProducts?.length < 1 ){
+    
     return <section className="flex items-center justify-center ">
       <h2 className=" text-primary font-bold capitalize text-4xl"> no products in cart </h2>
     </section>

@@ -26,18 +26,20 @@ const CartContext = createContext()
   }
 
   const GetUserCart = async() => {
-    let {data} = await customFetch.get('/api/v1/cart',{
+    try{
+        const{data}= await customFetch.get('/api/v1/cart',{
       headers:{
         token : localStorage.getItem('token')
       }
     })
-
     setNumberofCartitems(data.numOfCartItems)
     setAllProducts(data.data.products)
     setTotalCartPrice(data.data.totalCartPrice)
+    }catch{
+      setAllProducts([])
+    }
+  
 
-    return data
-    
   }
   const UpdateCartCount = async(productId ,newCount ) => {
     const {data} = await customFetch.put(`/api/v1/cart/${productId}`,{count : newCount},{

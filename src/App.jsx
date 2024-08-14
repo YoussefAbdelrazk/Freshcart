@@ -10,7 +10,7 @@ import {  loader as ProductsLoader} from './pages/Products'
 import {  loader as CategoriesLoader} from './pages/Categories'
 import {  loader as BrandsLoader} from './pages/Brands'
 import {  loader as WishListLoader} from './pages/WishList'
-import {  loader as CartLoader} from './pages/Cart'
+
 import { UserProvider } from './context/userContext'
 import ProtectRoute from './components/ProtectRoute'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -21,7 +21,7 @@ function App() {
     {path:'/',element: <ProtectRoute><HomeLayout/></ProtectRoute>  ,errorElement:<Error/>, children:[
        {index:true,element:<><Landing/></>,errorElement:<ErrorElement/>,loader:Landingloader},
        {path:'/about',element:<ProtectRoute><About/></ProtectRoute>},
-       {path:'/cart',element:<ProtectRoute><Cart/></ProtectRoute>,loader:CartLoader},
+       {path:'/cart',element:<ProtectRoute><Cart/></ProtectRoute>,errorElement:<ErrorElement/> ,},
        {path:'/wishlist',element:<ProtectRoute><WishList/></ProtectRoute>,loader:WishListLoader},
        {path:'/products',element:<ProtectRoute><Products/></ProtectRoute>, errorElement:<ErrorElement/>,loader:ProductsLoader},
        {path:'/products/:id',element:<ProtectRoute><SingleProduct/></ProtectRoute>,loader:SingleLoader,errorElement:<ErrorElement/>},
