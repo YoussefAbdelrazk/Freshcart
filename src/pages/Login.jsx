@@ -46,10 +46,12 @@ export default function Login() {
          GetUserCart()
           navigate("/");
         }
+        
       })
       .catch((err) => {
-        // toast.error(err.response.data.message);
-        console.log(err)
+        setloading(false)
+         toast.error(err.response.data.message);
+        
       });
   }
 
