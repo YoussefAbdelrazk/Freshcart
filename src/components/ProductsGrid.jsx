@@ -23,7 +23,7 @@ export default function ProductsGrid() {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className=" card-title tracking-wider capitalize">
+              <h2 className=" card-title tracking-wider capitalize line-clamp-1">
                 {" "}
                 {title}
               </h2>
