@@ -18,6 +18,7 @@ const getThemeLocalStorage = () => {
 }
 
 export default function Navbar() {
+
   const navigate = useNavigate()
   const { User} = userGlobal()
   const {NumberofCartitems } = useCartGlobalContext()
@@ -38,8 +39,10 @@ export default function Navbar() {
    },[theme])
 
    function Logout(){
+
     localStorage.removeItem("token")
     localStorage.removeItem("name")
+
     navigate('/login')
    }
    
@@ -88,7 +91,9 @@ export default function Navbar() {
               </div>
             </NavLink>}
             
-            <button onClick={Logout} className="btn btn-secondary ml-5"> Logout</button>
+            <button onClick={Logout} className="btn btn-secondary ml-5">
+            
+               Logout</button>
           </div>
         </div>
     </nav>

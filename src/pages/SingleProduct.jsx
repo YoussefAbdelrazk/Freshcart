@@ -15,6 +15,9 @@ export const loader = async ({ params }) => {
 };
 
 export default function SingleProduct() {
+  const [Loading1, setLoading1] = useState(false)
+  const [Loading2, setLoading2] = useState(false)
+  const [productid, setProductid] = useState(0)
   const { AddProduct } = useCartGlobalContext();
   const {AddWishlist} = useWishList()
 
@@ -28,9 +31,12 @@ export default function SingleProduct() {
     product;
 
   const handAddProduct = async (id) => {
+    setProductid(id)
+    setLoading1(true)
     let response = await AddProduct(id);
 
     if (response) {
+      setLoading1(false)
       toast.success(response.message);
     } else {
       toast.error("can not add product ");
@@ -38,8 +44,10 @@ export default function SingleProduct() {
   };
 
   const handleAddWishlist = async(id) => {
+    setLoading2(true)
     let response = await AddWishlist(id)
       if(response) {
+        setLoading2(false)
         toast.success(response.message);
       }else{
         toast.error("can not add wishlist ");
@@ -229,12 +237,14 @@ export default function SingleProduct() {
               onClick={() => handAddProduct(id)}
               className="btn btn-secondary btn-md"
             >
+              { Loading1 && <span className=" loading loading-spinner"></span>}
               Add to Cart
             </button>
             <button
               onClick={() => handleAddWishlist(id)}
               className="btn btn-primary btn-md"
             >
+                  { Loading2 && <span className=" loading loading-spinner"></span>}
               Add to WishList
             </button>
           </div>

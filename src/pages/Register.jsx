@@ -9,6 +9,7 @@ import { userGlobal } from "../context/userContext";
 
 const url = '/api/v1/auth/signup'
 export default function Register() {
+  const [loading, setloading] = useState(false)
     const[ErrorMessage,setErrorMessage] =useState('')
     const navigate = useNavigate()
     const{setName,setUser}= userGlobal()
@@ -32,9 +33,11 @@ export default function Register() {
   });
 
           function Register(values){
+            setloading(true)
                 customFetch.post(url,values).then((response)=>{
                 
                   if(response?.data.message === "success"){
+                    setloading(false);
                     localStorage.setItem("token", response?.data.token)
                     setUser(response?.data.token)
                     localStorage.setItem("name",response?.data.user.name)
@@ -151,7 +154,7 @@ export default function Register() {
 
 
           <div className="mt-4">
-            <SubmitBtn text='Register'/>
+            <SubmitBtn isloading={loading} text='Register'/>
           </div>
 
           <p className="text-center">Already a member ? <Link className=" ml-2 link link-hover capitalize link-primary " to='/login'>login</Link></p>

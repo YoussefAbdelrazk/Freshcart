@@ -17,6 +17,7 @@ export default function Login() {
 
   const {GetUserCart} = useCartGlobalContext()
   const {setName,setUser} = userGlobal()
+  const [loading, setloading] = useState(false)
 
   const navigate = useNavigate()
   // const[ErrorMessage,setErrorMessage] =useState('')
@@ -30,11 +31,13 @@ export default function Login() {
   });
 
   function Login(values) {
+    setloading(true)
     customFetch
       .post(url, values)
       .then((response) => {
         
         if (response.data.message === "success") {
+          setloading(false);
           localStorage.setItem("token", response?.data.token);
           setUser(response?.data.token)
           localStorage.setItem("name",response?.data.user.name)
@@ -127,7 +130,7 @@ export default function Login() {
         )}
 
         <div className="mt-5">
-          <SubmitBtn text="Login" />
+          <SubmitBtn isloading = {loading} text="Login" />
         </div>
         
         <p className="text-center">
@@ -136,6 +139,8 @@ export default function Login() {
             className=" ml-2 link link-hover capitalize link-primary "
             to="/register"
           >
+            
+            
             Register
           </Link>
         </p>

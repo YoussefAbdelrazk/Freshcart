@@ -3,6 +3,7 @@ import { SectionTitle } from "../components";
 import { useCartGlobalContext } from "../context/cartContext";
 import { customFetch } from "../utils";
 import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
 
  export const loader = async() => {
 
@@ -19,12 +20,31 @@ import { useLoaderData } from "react-router-dom";
 
 
 export default function Cart() {
+  const [Loading1, setLoading1] = useState(false)
+  const [Loading2, setLoading2] = useState(false)
+  const [Loading3, setLoading3] = useState(false)
+  const [Productid, setProductid] = useState(0)
   const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct} = useCartGlobalContext()
 
 
+
+  const handleUpdateProduct = async(id,newcount) => {
+    setLoading2(true)
+    const res = await UpdateCartCount(id,newcount)
+    if (res) {
+      setLoading2(false)
+    }else{
+      toast.error("can not update product")
+    }
+  }
+  
   const HandleDeleteProduct = async(id) => {
+    setProductid(id)
+    setLoading3(true)
+
   const res = await DeleteProduct(id)
     if(res){
+      setLoading3(false)
       toast.success('Product deleted successfully')
     }else{
       toast.error('Product not deleted')
@@ -66,7 +86,7 @@ export default function Cart() {
             {title}
           </h5>
           <button  onClick={()=>HandleDeleteProduct(_id)} className="rounded-full group flex items-center justify-center focus-within:outline-red-500">
-            <svg
+          { Productid==id && Loading3 ? <span className=" loading loading-spinner"></span> :<svg
               width={34}
               height={34}
               viewBox="0 0 34 34"
@@ -87,13 +107,15 @@ export default function Cart() {
                 strokeWidth="1.6"
                 strokeLinecap="round"
               />
-            </svg>
+            </svg>}
+            
           </button>
         </div>
       
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <button onClick={()=>UpdateCartCount(_id,count -1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
+            <button onClick={()=>handleUpdateProduct(_id,count -1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
+            
               <svg
                 className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                 width={18}
@@ -117,7 +139,7 @@ export default function Cart() {
               className="border  border-gray-200 rounded-full w-12 aspect-square outline-none text-gray-900 font-semibold text-sm py-1.5 px-3 bg-gray-100  text-center"
               placeholder={count}
             />
-            <button onClick={()=>UpdateCartCount(_id,count +1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
+            <button onClick={()=>handleUpdateProduct(_id,count +1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
               <svg
                 className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                 width={18}
@@ -140,6 +162,9 @@ export default function Cart() {
             {`$${price}`}
           </h6>
           
+        </div>
+        <div className="  ml-16 mt-10 ">
+        {Loading2 && <span className="   loading loading-spinner loading-lg"></span>}
         </div>
       </div>
     </div>

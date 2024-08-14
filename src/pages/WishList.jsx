@@ -5,6 +5,7 @@ import { useWishList } from "../context/wishListContext";
 import { customFetch } from "../utils";
 import { useLoaderData } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
+import { useState } from "react";
 
 export const loader = async()=>{
   const {data} = await customFetch.get('/api/v1/wishlist',{
@@ -15,15 +16,19 @@ export const loader = async()=>{
   return{ products : data.data}
 }
 export default function WishList() {
+  const [Loading1, setLoading1] = useState(false)
+  const [Loading2, setLoading2] = useState(false)
 
   const {Allproducts,DeleteProductWishlist} = useWishList()
   const { AddProduct } = useCartGlobalContext();
   const {products} = useLoaderData()
   
   const handAddProduct = async (id) => {
+    setLoading1(true)
     let response = await AddProduct(id);
 
     if (response) {
+      setLoading1(false)
       toast.success(response.message);
     } else {
       toast.error("can not add product ");
@@ -31,9 +36,12 @@ export default function WishList() {
   };
 
   const handleDeletproduct = async(id) => {
+    setLoading2(true)
+
     const response = await DeleteProductWishlist(id)
     
     if (response) {
+      setLoading2(false)
       toast.success(response.message);
     } else {
       toast.error("can not delete product ");
@@ -125,8 +133,12 @@ export default function WishList() {
               </p>
             </div>
             <div className="mt-5 flex items-center space-x-8">
-              <button  onClick={()=>handAddProduct(id)} className=" btn btn-primary">Add to Cart</button>
-              <button  onClick={()=>handleDeletproduct(id)} className=" btn btn-circle hover:bg-red-600 duration-500"><MdDelete/></button>
+              <button  onClick={()=>handAddProduct(id)} className=" btn btn-primary">
+                {Loading1 && <span className=" loading loading-spinner"></span>}
+                Add to Cart</button>
+              <button  onClick={()=>handleDeletproduct(id)} className=" btn btn-circle hover:bg-red-600 duration-500">
+              {Loading2 ? <span className=" loading loading-spinner"></span> :<MdDelete/>}
+                </button>
             </div>
           </div>
           
