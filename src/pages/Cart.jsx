@@ -1,23 +1,28 @@
 import { toast } from "react-toastify";
 import { SectionTitle } from "../components";
 import { useCartGlobalContext } from "../context/cartContext";
-
+import {Link} from 'react-router-dom'
 
 import { useState ,useEffect} from "react";
 import { Helmet } from 'react-helmet-async';
 
 
 export default function Cart() {
+  
 
   const [Loading2, setLoading2] = useState(false)
   const [Loading3, setLoading3] = useState(false)
-  const [Productid, setProductid] = useState(0)
-  const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct ,GetUserCart} = useCartGlobalContext()
+  const [Productid, setProductid] = useState(0)  
 
+
+
+  const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct ,GetUserCart,CartID} = useCartGlobalContext()
 
 
   
   
+
+
   
 
   const handleUpdateProduct = async(id,newcount) => {
@@ -35,10 +40,12 @@ export default function Cart() {
     setLoading3(true)
 
   const res = await DeleteProduct(id)
+
     if(res){
       setLoading3(false)
       toast.success('Product deleted successfully')
     }else{
+      setLoading3(false)
       toast.error('Product not deleted')
     }
   }
@@ -63,11 +70,15 @@ export default function Cart() {
   <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">  
 
     {allProducts?.map((productParent)=>{
-      const {count , price , product}= productParent
-      const { id , imageCover,quantity , title,_id } = product
+      const {count , price , product , }= productParent
+      
+    
+
+      const { id , imageCover, title,_id } = product
+
 
           if(count === 0 ){
-            DeleteProduct(_id)
+            DeleteProduct(id)
           }
       return <div key={id} className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 ">
       <div className="col-span-12 lg:col-span-2 img box">
@@ -82,7 +93,7 @@ export default function Cart() {
           <h5 className="font-manrope font-bold text-2xl leading-9 text-primary">
             {title}
           </h5>
-          <button  onClick={()=>HandleDeleteProduct(_id)} className="rounded-full group flex items-center justify-center focus-within:outline-red-500">
+          <button  onClick={()=>HandleDeleteProduct(id)} className="rounded-full group flex items-center justify-center focus-within:outline-red-500">
           { Productid==id && Loading3 ? <span className=" loading loading-spinner"></span> :<svg
               width={34}
               height={34}
@@ -111,7 +122,7 @@ export default function Cart() {
       
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <button onClick={()=>handleUpdateProduct(_id,count -1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
+            <button onClick={()=>handleUpdateProduct(id,count -1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
             
               <svg
                 className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
@@ -136,7 +147,7 @@ export default function Cart() {
               className="border  border-gray-200 rounded-full w-12 aspect-square outline-none text-gray-900 font-semibold text-sm py-1.5 px-3 bg-gray-100  text-center"
               placeholder={count}
             />
-            <button onClick={()=>handleUpdateProduct(_id,count +1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
+            <button onClick={()=>handleUpdateProduct(id,count +1)} className="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
               <svg
                 className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                 width={18}
@@ -164,7 +175,11 @@ export default function Cart() {
         {Loading2 && <span className="   loading loading-spinner loading-lg"></span>}
         </div>
       </div>
+
+      
     </div>
+
+
     })}
   
     <div className="flex flex-col md:flex-row items-center md:items-center justify-between lg:px-6 pb-6 border-b border-gray-200 max-lg:max-w-lg max-lg:mx-auto">
@@ -179,10 +194,10 @@ export default function Cart() {
       </div>
     </div>
     <div className="max-lg:max-w-lg max-lg:mx-auto">
-      
-      <button className="rounded-full my-12 py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">
+    <Link to={`/payment/${CartID}`} className="rounded-full block my-12 py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">
         Checkout
-      </button>
+      </Link>
+    
     </div>
   </div>
 </div>

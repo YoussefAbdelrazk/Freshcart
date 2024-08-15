@@ -10,6 +10,7 @@ const CartContext = createContext()
   const [allProducts, setAllProducts] = useState(null)
   const [NumberofCartitems, setNumberofCartitems] = useState(0)
   const [TotalCartPrice, setTotalCartPrice] = useState(0)
+  const [CartID, setCartID] = useState(0)
 
 
   const AddProduct = async(productId) => {
@@ -32,9 +33,11 @@ const CartContext = createContext()
         token : localStorage.getItem('token')
       }
     })
+  
     setNumberofCartitems(data.numOfCartItems)
     setAllProducts(data.data.products)
     setTotalCartPrice(data.data.totalCartPrice)
+    setCartID(data.data._id)
     }catch{
       setAllProducts([])
     }
@@ -78,7 +81,7 @@ const CartContext = createContext()
   
   
 
-  return <CartContext.Provider value={{AddProduct,GetUserCart,allProducts,NumberofCartitems,TotalCartPrice,UpdateCartCount,DeleteProduct}}>
+  return <CartContext.Provider value={{AddProduct,GetUserCart,allProducts,NumberofCartitems,TotalCartPrice,UpdateCartCount,DeleteProduct,CartID}}>
     {children}
   </CartContext.Provider>
 }

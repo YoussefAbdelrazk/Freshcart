@@ -2,7 +2,7 @@
 
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-import { Orders,Landing,Cart,Checkout,Login,Register,Products,SingleProduct,Error,HomeLayout,About,Categories,Brands,WishList } from './pages'
+import { Landing,Cart,Login,Register,Products,SingleProduct,Error,HomeLayout,Categories,Brands,WishList ,Shipping} from './pages'
 import { ErrorElement } from './components'
 import { loader as Landingloader } from './pages/Landing'
 import { loader as SingleLoader } from './pages/SingleProduct'
@@ -20,12 +20,13 @@ function App() {
   const router = createBrowserRouter([
     {path:'/',element: <ProtectRoute><HomeLayout/></ProtectRoute>  ,errorElement:<Error/>, children:[
        {index:true,element:<><Landing/></>,errorElement:<ErrorElement/>,loader:Landingloader},
-       {path:'/about',element:<ProtectRoute><About/></ProtectRoute>},
+      //  {path:'/about',element:<ProtectRoute><About/></ProtectRoute>},
        {path:'/cart',element:<ProtectRoute><Cart/></ProtectRoute>,errorElement:<ErrorElement/> ,},
+       {path:'/payment/:id',element:<ProtectRoute><Shipping/></ProtectRoute>,errorElement:<ErrorElement/> ,},
        {path:'/wishlist',element:<ProtectRoute><WishList/></ProtectRoute>,loader:WishListLoader},
        {path:'/products',element:<ProtectRoute><Products/></ProtectRoute>, errorElement:<ErrorElement/>,loader:ProductsLoader},
        {path:'/products/:id',element:<ProtectRoute><SingleProduct/></ProtectRoute>,loader:SingleLoader,errorElement:<ErrorElement/>},
-       {path:'/orders',element:<Orders/>},
+      //  {path:'/orders',element:<Orders/>},
        {path:'/categories',element:<ProtectRoute><Categories/></ProtectRoute>,loader:CategoriesLoader},
        {path:'/brands',element:<ProtectRoute><Brands/></ProtectRoute> ,loader:BrandsLoader},
     ]},

@@ -10,17 +10,17 @@ export default function ProductsGrid() {
   const { products } = useLoaderData();
   const {AddWishlist} = useWishList()
 
-  const handleclick = async(id) => {
-    setProductID(id)
-    const res = await AddWishlist(id)
-    if(res){
-      setIsclicked(!isclicked); 
-      toast.success(res.message);
-    }else{
-      toast.error("can not add wishlist ");
-    }
+  // const handleclick = async(id) => {
+  //   setProductID(id)
+  //   const res = await AddWishlist(id)
+  //   if(res){
+  //     setIsclicked(!isclicked); 
+  //     toast.success(res.message);
+  //   }else{
+  //     toast.error("can not add wishlist ");
+  //   }
     
-  }
+  // }
   
 
   return (
@@ -110,7 +110,7 @@ export default function ProductsGrid() {
             </div>
             </Link>
           
-            <span onClick={()=>handleclick(id)}  className={`absolute cursor-pointer right-5 ${ productID==id&& isclicked && 'text-red-700'}`}> <FaHeart   size={30} /> </span>
+            
           </div>
           
         );
