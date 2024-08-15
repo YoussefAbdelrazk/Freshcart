@@ -10,6 +10,7 @@ import { UserProvider } from "./context/userContext.jsx";
 import { CartProvider } from "./context/cartContext.jsx";
 import { WishlistProvider } from "./context/wishListContext.jsx";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { AllOrdersProvider } from "./context/AllOrders.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -20,7 +21,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserProvider>
         <CartProvider>
           <WishlistProvider>
-              <App />
+            <AllOrdersProvider>
+                <App />
+            </AllOrdersProvider>
+            
           </WishlistProvider>
         
         </CartProvider>

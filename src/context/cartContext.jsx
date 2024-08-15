@@ -38,6 +38,7 @@ const CartContext = createContext()
     setAllProducts(data.data.products)
     setTotalCartPrice(data.data.totalCartPrice)
     setCartID(data.data._id)
+    console.log(data)
     }catch{
       setAllProducts([])
     }

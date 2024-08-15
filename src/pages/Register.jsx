@@ -36,7 +36,7 @@ export default function Register() {
           function Register(values){
             setloading(true)
                 customFetch.post(url,values).then((response)=>{
-                
+
                   if(response?.data.message === "success"){
                     setloading(false);
                     localStorage.setItem("token", response?.data.token)
@@ -47,6 +47,7 @@ export default function Register() {
                     navigate('/')
                   }
                 }).catch((err)=>{
+                  setloading(false);
 
                   setErrorMessage(err.response.data.message)
                   toast.error(err.response.data.message)

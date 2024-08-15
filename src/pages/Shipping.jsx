@@ -28,7 +28,7 @@ export default function Shipping() {
       .post(
         `/api/v1/orders/checkout-session/${id}`,
         { shippingAddress: values },
-        { headers: { token: localStorage.getItem("token") } ,params: {url: "http://localhost:3000"}}
+        { headers: { token: localStorage.getItem("token") } ,params: {url: "http://localhost:5173"}}
       )
       .then((response) => {
         setloading(false);
