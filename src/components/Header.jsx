@@ -5,6 +5,7 @@ import { userGlobal } from "../context/userContext";
 
 export default function Header() {
   const{ name } = userGlobal()
+  if(name == null) return;
   return (
     <header className=" bg-neutral py-2 text-neutral-content">
       <div className=" align-element flex justify-center sm:justify-end">

@@ -2,7 +2,7 @@
 
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-import { Landing,Cart,Login,Register,Products,SingleProduct,Error,HomeLayout,Categories,Brands,WishList ,Shipping} from './pages'
+import { Landing,Cart,Login,Register,Products,SingleProduct,Error,HomeLayout,Categories,Brands,WishList ,Shipping,Forgetpassword,CodeVerify,ResetPassword} from './pages'
 import { ErrorElement } from './components'
 import { loader as Landingloader } from './pages/Landing'
 import { loader as SingleLoader } from './pages/SingleProduct'
@@ -33,6 +33,9 @@ function App() {
 
     {path:'/login',element:<Login/> ,errorElement:<Error/>},
     {path:'/register',element:<Register/> ,errorElement:<Error/>},
+    {path:'/forgetpassword',element:<Forgetpassword/> ,errorElement:<Error/>},
+    {path:'/codeverify',element:<CodeVerify/> ,errorElement:<Error/>},
+    {path:'/resetpassword',element:<ResetPassword/> ,errorElement:<Error/>},
 
   ])
 

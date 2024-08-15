@@ -11,7 +11,7 @@ export const UserProvider = ({children}) => {
   const [name,setName] = useState(localStorage.getItem("name")|| null)
 
   
-
+console.log(name)
 return  <UserContext.Provider value={{User,name,setName,setUser}}>
     {children}
   </UserContext.Provider>

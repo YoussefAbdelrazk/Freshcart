@@ -13,8 +13,8 @@ import { Helmet } from 'react-helmet-async';
 
 
 
-const url = "/api/v1/auth/signin";
-export default function Login() {
+const url = "/api/v1/auth/resetPassword";
+export default function ResetPassword() {
 
   const {GetUserCart} = useCartGlobalContext()
   const {setName,setUser} = userGlobal()
@@ -26,7 +26,7 @@ export default function Login() {
   let validate = Yup.object().shape({
     email: Yup.string().email("email is invalid").required("email is invalid"),
 
-    password: Yup.string()
+    newPassword: Yup.string()
       .matches(/^[A-Z][a-z0-9]{5,10}$/, "password must be uppercase")
       .required(),
   });
@@ -34,19 +34,20 @@ export default function Login() {
   function Login(values) {
     setloading(true)
     customFetch
-      .post(url, values)
+      .put(url, values)
       .then((response) => {
+        console.log(response)
         
-        if (response.data.message === "success") {
+        
           setloading(false);
           localStorage.setItem("token", response?.data.token);
           setUser(response?.data.token)
-          localStorage.setItem("name",response?.data.user.name)
-          setName(response?.data.user.name)
-         toast.success(`Welcome ${response?.data.user.name}`);
+          // localStorage.setItem("name",response?.data.user.name)
+          // setName(response?.data.user.name)
+         toast.success(`Welcome Back`);
          GetUserCart()
           navigate("/");
-        }
+        
         
       })
       .catch((err) => {
@@ -60,7 +61,7 @@ export default function Login() {
     useFormik({
       initialValues: {
         email: "",
-        password: "",
+        newPassword: "",
       },
       onSubmit: Login,
       validationSchema: validate,
@@ -76,7 +77,7 @@ export default function Login() {
         method="post"
         className="flex flex-col p-8 gap-y-4 card w-96 bg-base-100 shadow-lg"
       >
-        <h4 className=" text-center font-bold text-3xl"> Login</h4>
+        <h4 className=" text-center font-bold text-3xl"> Create New Password </h4>
 
 
         <FormInput
@@ -109,14 +110,14 @@ export default function Login() {
 
         <FormInput
           type="password"
-          name="password"
-          label="Password"
-          value={values.password}
+          name="newPassword"
+          label="New Password"
+          value={values.newPassword}
           handleChange={handleChange}
           handleBlur={handleBlur}
           touched={touched}
         />
-        {errors.password && touched.password && (
+        {errors.newPassword && touched.newPassword && (
           <div role="alert" className="alert alert-error">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +132,7 @@ export default function Login() {
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <span>{errors.password}</span>
+            <span>{errors.newPassword}</span>
           </div>
         )}
 
@@ -139,18 +140,8 @@ export default function Login() {
           <SubmitBtn isloading = {loading} text="Login" />
         </div>
         
-        <p className="text-center">
-          Not a member yet ?{" "}
-          <Link
-            className=" ml-2 link link-hover capitalize link-primary "
-            to="/register"
-          >
-            
-            
-            Register
-          </Link>
-        </p>
-        <Link className=" btn" to={'/forgetpassword'}> ForgetPassword</Link>
+      
+
       </Form>
     </section>
   );
