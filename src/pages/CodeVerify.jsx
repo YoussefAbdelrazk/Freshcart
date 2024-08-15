@@ -48,7 +48,7 @@ export default function CodeVerify() {
       .catch((err) => {
 
         setloading(false)
-         toast.error(" cant send code to this email please try again");
+         toast.error(" cant verify this code please try again");
         
       });
   }

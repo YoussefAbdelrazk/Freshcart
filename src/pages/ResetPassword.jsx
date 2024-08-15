@@ -52,7 +52,7 @@ export default function ResetPassword() {
       })
       .catch((err) => {
         setloading(false)
-         toast.error(err.response.data.message);
+         toast.error("An was error please try again");
         
       });
   }
