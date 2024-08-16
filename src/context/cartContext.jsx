@@ -79,6 +79,7 @@ const CartContext = createContext()
       setNumberofCartitems(0)
       setAllProducts([])
       setTotalCartPrice(0)
+      return data
         
     }catch(e){
       console.log(e)

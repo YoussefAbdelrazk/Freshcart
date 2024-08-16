@@ -30,6 +30,7 @@ export default function Cart() {
       setLoading1(false)
       toast.success("Your cart has been cleared")
     }else{
+      toast.error("some error for clearing your cart")
       setLoading1(false)
     }
   }
