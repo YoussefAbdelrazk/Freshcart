@@ -26,6 +26,7 @@ export default function Cart() {
   
 
   const handleUpdateProduct = async(id,newcount) => {
+    setProductid(id)
     setLoading2(true)
     const res = await UpdateCartCount(id,newcount)
     if (res) {
@@ -172,7 +173,7 @@ export default function Cart() {
           
         </div>
         <div className="  ml-16 mt-10 ">
-        {Loading2 && <span className="   loading loading-spinner loading-lg"></span>}
+        { Productid===id && Loading2 && <span className="loading loading-spinner loading-lg"></span>}
         </div>
       </div>
 
