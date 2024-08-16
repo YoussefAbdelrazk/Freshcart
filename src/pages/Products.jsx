@@ -3,6 +3,7 @@ import { customFetch } from "../utils";
 import { Helmet } from 'react-helmet-async';
 
 const url = '/api/v1/products'
+
 export const loader = async({request})=>{
 
   const {data} = await customFetch.get(url)

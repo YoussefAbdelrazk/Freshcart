@@ -78,7 +78,10 @@ const CartContext = createContext()
           token : localStorage.getItem('token')
         }
       })  
-        GetUserCart()
+      setNumberofCartitems(0)
+      setAllProducts([])
+      setTotalCartPrice(0)
+        
     }catch(e){
       console.log(e)
     }
