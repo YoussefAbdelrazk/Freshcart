@@ -70,6 +70,22 @@ const CartContext = createContext()
     return data
   }
   
+
+  const ClearCart = async() => {
+    try{
+      const {data} = await customFetch.delete(`/api/v1/cart`,{
+        headers :{
+          token : localStorage.getItem('token')
+        }
+      })  
+        GetUserCart()
+    }catch(e){
+      console.log(e)
+    }
+  
+
+  }
+  
   
 
   useEffect(() => {
@@ -82,7 +98,7 @@ const CartContext = createContext()
   
   
 
-  return <CartContext.Provider value={{AddProduct,GetUserCart,allProducts,NumberofCartitems,TotalCartPrice,UpdateCartCount,DeleteProduct,CartID}}>
+  return <CartContext.Provider value={{AddProduct,GetUserCart,allProducts,NumberofCartitems,TotalCartPrice,UpdateCartCount,DeleteProduct,CartID,ClearCart}}>
     {children}
   </CartContext.Provider>
 }

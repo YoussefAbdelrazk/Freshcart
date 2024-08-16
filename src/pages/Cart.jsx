@@ -3,7 +3,7 @@ import { SectionTitle } from "../components";
 import { useCartGlobalContext } from "../context/cartContext";
 import {Link} from 'react-router-dom'
 
-import { useState ,useEffect} from "react";
+import { useState } from "react";
 import { Helmet } from 'react-helmet-async';
 
 
@@ -12,16 +12,22 @@ export default function Cart() {
 
   const [Loading2, setLoading2] = useState(false)
   const [Loading3, setLoading3] = useState(false)
+
+
+  
   const [Productid, setProductid] = useState(0)  
 
 
-
-  const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct ,GetUserCart,CartID} = useCartGlobalContext()
+  const { allProducts,TotalCartPrice,UpdateCartCount,DeleteProduct ,GetUserCart,CartID,ClearCart} = useCartGlobalContext()
 
 
   
   
-
+  const clearCart = async() => {
+    const res = await ClearCart()
+    console.log(res)
+  }
+  
 
   
 
@@ -68,6 +74,9 @@ export default function Cart() {
       <SectionTitle text=' shopping cart'/>
 
       <div className="py-24 relative">
+        <div className=" flex justify-end mb-12"> 
+          <button onClick={clearCart} className=" btn btn-primary">ClearCart</button>
+        </div>
   <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">  
 
     {allProducts?.map((productParent)=>{
@@ -75,12 +84,13 @@ export default function Cart() {
       
     
 
-      const { id , imageCover, title,_id } = product
+      const { id , imageCover, title, } = product
 
 
           if(count === 0 ){
             DeleteProduct(id)
           }
+
       return <div key={id} className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 ">
       <div className="col-span-12 lg:col-span-2 img box">
         <img
