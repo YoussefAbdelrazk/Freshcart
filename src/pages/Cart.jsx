@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet-async';
 
 export default function Cart() {
   
-
+  const [Loading1, setLoading1] = useState(false)
   const [Loading2, setLoading2] = useState(false)
   const [Loading3, setLoading3] = useState(false)
 
@@ -24,8 +24,14 @@ export default function Cart() {
   
   
   const clearCart = async() => {
+    setLoading1(true)
     const res = await ClearCart()
-    console.log(res)
+    if(res){
+      setLoading1(false)
+      toast.success("Your cart has been cleared")
+    }else{
+      setLoading1(false)
+    }
   }
   
 
@@ -75,7 +81,11 @@ export default function Cart() {
 
       <div className="py-24 relative">
         <div className=" flex justify-end mb-12"> 
-          <button onClick={clearCart} className=" btn btn-primary">ClearCart</button>
+          <button onClick={clearCart} className=" btn btn-primary">
+          { Loading1 ? <span className=" loading loading-spinner"></span>:  "ClearCart"}
+              
+          
+            </button>
         </div>
   <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">  
 
