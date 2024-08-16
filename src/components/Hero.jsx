@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import hero1 from '../assets/slider-image-1.jpeg'
 import hero2 from '../assets/slider-image-2.jpeg';
 import hero3 from '../assets/slider-image-3.jpeg';
+import hero4 from '../assets/james-qualtrough-qvXPDFVMics-unsplash.jpg';
+import hero5 from '../assets/nipun-haldar-qFhmYV6mOnI-unsplash.jpg';
+import hero6 from '../assets/yours-B9EHePG56zA-unsplash.jpg';
 // import hero4 from '../assets/hero4.webp';
-const carouselImages = [hero1, hero2, hero3];
+const carouselImages = [hero1, hero2, hero3,hero4,hero5,hero6];
 export default function Hero() {
   return (
     <div className="grid lg:grid-cols-2 gap-24 items-center">

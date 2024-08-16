@@ -2,9 +2,7 @@ import { createContext, useContext, useState,useEffect } from "react";
 import { customFetch } from "../utils";
 
 
-
 const CartContext = createContext()
-
 
  export const CartProvider = ({children}) => {
   const [allProducts, setAllProducts] = useState(null)
