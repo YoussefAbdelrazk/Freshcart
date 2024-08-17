@@ -18,4 +18,5 @@
  export { default as CodeVerify} from './CodeVerify'
  export { default as ResetPassword} from './ResetPassword'
  export { default as AllOrders} from './AllOrders'
+ export { default as CashOrder} from './CashOrder'
 

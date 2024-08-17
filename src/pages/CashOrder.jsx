@@ -1,3 +1,4 @@
+
 import { Form, Link, useNavigate, useParams } from "react-router-dom";
 import { FormInput, SubmitBtn } from "../components";
 import { useFormik } from "formik";
@@ -10,10 +11,11 @@ import { useCartGlobalContext } from "../context/cartContext";
 import { userGlobal } from "../context/userContext";
 import { Helmet } from "react-helmet-async";
 
-export default function Shipping() {
+
+export default function CashOrder() {
+  const navigate = useNavigate()
   const{Updateui} = useCartGlobalContext()
-
-
+  
   const { id } = useParams();
 
 
@@ -29,17 +31,23 @@ export default function Shipping() {
     setloading(true);
     customFetch
       .post(
-        `/api/v1/orders/checkout-session/${id}`,
+        `/api/v1/orders/${id}`,
         { shippingAddress: values },
-        { headers: { token: localStorage.getItem("token") } ,params: {url: "http://localhost:5173"}}
+        { headers: { token: localStorage.getItem("token") } }
       )
       .then((response) => {
-        setloading(false);
-        location.href = response.data.session.url
+          setloading(false);
         Updateui()
+        toast.success("orders added successfully")
+        navigate('/products')
+        
+        
+      
+        
         
       })
       .catch((err) => {
+        toast.error("can not order this products")
         console.log(err)
         setloading(false);
 
@@ -60,7 +68,7 @@ export default function Shipping() {
   return (
     <section className=" grid  place-items-center">
       <Helmet>
-        <title>Online Order</title>
+        <title>CashOrder</title>
       </Helmet>
       <Form
         onSubmit={handleSubmit}

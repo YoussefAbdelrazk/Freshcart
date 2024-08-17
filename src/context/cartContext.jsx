@@ -11,6 +11,15 @@ const CartContext = createContext()
   const [CartID, setCartID] = useState(0)
 
 
+
+  const Updateui = () => {
+    setAllProducts([])
+    setNumberofCartitems(0)
+    setTotalCartPrice(0)
+
+  }
+  
+
   const AddProduct = async(productId) => {
     
     let {data} = await customFetch.post('/api/v1/cart',{productId},{
@@ -100,7 +109,7 @@ const CartContext = createContext()
   
   
 
-  return <CartContext.Provider value={{AddProduct,GetUserCart,allProducts,NumberofCartitems,TotalCartPrice,UpdateCartCount,DeleteProduct,CartID,ClearCart}}>
+  return <CartContext.Provider value={{AddProduct,GetUserCart,allProducts,NumberofCartitems,TotalCartPrice,UpdateCartCount,DeleteProduct,CartID,ClearCart,Updateui}}>
     {children}
   </CartContext.Provider>
 }

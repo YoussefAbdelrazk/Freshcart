@@ -217,7 +217,10 @@ export default function Cart() {
     </div>
     <div className="max-lg:max-w-lg max-lg:mx-auto">
     <Link to={`/payment/${CartID}`} className="rounded-full block my-12 py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">
-        Checkout
+        Online
+      </Link>
+    <Link to={`/cashorder/${CartID}`} className="rounded-full block my-12 py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">
+        Cash
       </Link>
     
     </div>
