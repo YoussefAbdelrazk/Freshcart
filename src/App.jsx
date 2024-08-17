@@ -20,7 +20,7 @@ function App() {
   const router = createBrowserRouter([
     {path:'/',element: <ProtectRoute><HomeLayout/></ProtectRoute>  ,errorElement:<Error/>, children:[
        {index:true,element:<><Landing/></>,errorElement:<ErrorElement/>,loader:Landingloader},
-       {path:'/allorder',element:<ProtectRoute><AllOrders/></ProtectRoute>},
+       {path:'/allorders',element:<ProtectRoute><AllOrders/></ProtectRoute>},
        {path:'/cart',element:<ProtectRoute><Cart/></ProtectRoute>,errorElement:<ErrorElement/> ,},
        {path:'/payment/:id',element:<ProtectRoute><Shipping/></ProtectRoute>,errorElement:<ErrorElement/> ,},
        {path:'/cashorder/:id',element:<ProtectRoute><CashOrder/></ProtectRoute>,errorElement:<ErrorElement/> ,},
