@@ -1,6 +1,3 @@
-
-
-
 import { Form, Link, useNavigate } from "react-router-dom";
 import { FormInput, SubmitBtn } from "../components";
 import { useFormik } from "formik";
@@ -9,47 +6,33 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { customFetch } from "../utils";
 
-
-import { Helmet } from 'react-helmet-async';
-
-
-
+import { Helmet } from "react-helmet-async";
 
 const url = "/api/v1/auth/verifyResetCode";
 export default function CodeVerify() {
+  const [loading, setloading] = useState(false);
 
-
-
-  const [loading, setloading] = useState(false)
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const[ErrorMessage,setErrorMessage] =useState('')
 
   let validate = Yup.object().shape({
-    resetCode: Yup.string().required()
-
-    
+    resetCode: Yup.string().required(),
   });
 
   function Verify(values) {
-    setloading(true)
+    setloading(true);
     customFetch
       .post(url, values)
       .then((response) => {
-        console.log(response)
-        if(response.data.status == "Success"){
+        console.log(response);
+        if (response.data.status == "Success") {
           setloading(false);
-           navigate('/resetpassword')
-
+          navigate("/resetpassword");
         }
-      
-          
       })
       .catch((err) => {
-
-        setloading(false)
-         toast.error(" cant verify this code please try again");
-        
+        setloading(false);
+        toast.error(" cant verify this code please try again");
       });
   }
 
@@ -57,7 +40,6 @@ export default function CodeVerify() {
     useFormik({
       initialValues: {
         resetCode: "",
-        
       },
       onSubmit: Verify,
       validationSchema: validate,
@@ -65,7 +47,7 @@ export default function CodeVerify() {
 
   return (
     <section className=" grid h-screen place-items-center">
-        <Helmet>
+      <Helmet>
         <title>VerifyCode</title>
       </Helmet>
       <Form
@@ -73,9 +55,6 @@ export default function CodeVerify() {
         method="post"
         className="flex flex-col p-8 gap-y-4 card w-96 bg-base-100 shadow-lg"
       >
-        
-
-
         <FormInput
           type="text"
           name="resetCode"
@@ -104,13 +83,9 @@ export default function CodeVerify() {
           </div>
         )}
 
-      
-
         <div className="mt-5">
-          <SubmitBtn isloading = {loading} text="Verify Code" />
+          <SubmitBtn isloading={loading} text="Verify Code" />
         </div>
-        
-    
       </Form>
     </section>
   );

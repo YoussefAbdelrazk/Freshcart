@@ -1,5 +1,3 @@
-
-
 import { Form, Link, useNavigate } from "react-router-dom";
 import { FormInput, SubmitBtn } from "../components";
 import { useFormik } from "formik";
@@ -10,48 +8,32 @@ import { customFetch } from "../utils";
 
 import { useCartGlobalContext } from "../context/cartContext";
 import { userGlobal } from "../context/userContext";
-import { Helmet } from 'react-helmet-async';
-
-
-
-
+import { Helmet } from "react-helmet-async";
 
 export default function Forgetpassword() {
+  const [loading, setloading] = useState(false);
 
-
-
-  const [loading, setloading] = useState(false)
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const[ErrorMessage,setErrorMessage] =useState('')
 
   let validate = Yup.object().shape({
     email: Yup.string().email("email is invalid").required("email is invalid"),
-
-    
   });
 
   function Forget(values) {
-    setloading(true)
+    setloading(true);
     customFetch
-      .post('/api/v1/auth/forgotPasswords', values)
+      .post("/api/v1/auth/forgotPasswords", values)
       .then((response) => {
-        
-        if(response.data.statusMsg == 'success'){
+        if (response.data.statusMsg == "success") {
           setloading(false);
-          toast.success(response.data.message)
-          navigate('/codeverify')
-
+          toast.success(response.data.message);
+          navigate("/codeverify");
         }
-      
-          
-        
-        
       })
       .catch((err) => {
-        setloading(false)
-         toast.error(" cant send code to this email");
-        
+        setloading(false);
+        toast.error(" cant send code to this email");
       });
   }
 
@@ -67,7 +49,7 @@ export default function Forgetpassword() {
 
   return (
     <section className=" grid h-screen place-items-center">
-        <Helmet>
+      <Helmet>
         <title>ForgetPassword</title>
       </Helmet>
       <Form
@@ -75,9 +57,6 @@ export default function Forgetpassword() {
         method="post"
         className="flex flex-col p-8 gap-y-4 card w-96 bg-base-100 shadow-lg"
       >
-        
-
-
         <FormInput
           type="email"
           name="email"
@@ -106,13 +85,9 @@ export default function Forgetpassword() {
           </div>
         )}
 
-      
-
         <div className="mt-5">
-          <SubmitBtn isloading = {loading} text="Send Code" />
+          <SubmitBtn isloading={loading} text="Send Code" />
         </div>
-        
-    
       </Form>
     </section>
   );

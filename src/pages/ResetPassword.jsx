@@ -8,19 +8,15 @@ import { customFetch } from "../utils";
 import { useDispatch } from "react-redux";
 import { useCartGlobalContext } from "../context/cartContext";
 import { userGlobal } from "../context/userContext";
-import { Helmet } from 'react-helmet-async';
-
-
-
+import { Helmet } from "react-helmet-async";
 
 const url = "/api/v1/auth/resetPassword";
 export default function ResetPassword() {
+  const { GetUserCart } = useCartGlobalContext();
+  const { setName, setUser } = userGlobal();
+  const [loading, setloading] = useState(false);
 
-  const {GetUserCart} = useCartGlobalContext()
-  const {setName,setUser} = userGlobal()
-  const [loading, setloading] = useState(false)
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const[ErrorMessage,setErrorMessage] =useState('')
 
   let validate = Yup.object().shape({
@@ -31,29 +27,25 @@ export default function ResetPassword() {
       .required(),
   });
 
-  function Login(values) {
-    setloading(true)
+  function ResetPassword(values) {
+    setloading(true);
     customFetch
       .put(url, values)
       .then((response) => {
-        console.log(response)
-        
-        
-          setloading(false);
-          localStorage.setItem("token", response?.data.token);
-          setUser(response?.data.token)
-          // localStorage.setItem("name",response?.data.user.name)
-          // setName(response?.data.user.name)
-         toast.success(`Welcome Back`);
-         GetUserCart()
-          navigate("/");
-        
-        
+        console.log(response);
+
+        setloading(false);
+        localStorage.setItem("token", response?.data.token);
+        setUser(response?.data.token);
+        // localStorage.setItem("name",response?.data.user.name)
+        // setName(response?.data.user.name)
+        toast.success(`Welcome Back`);
+        GetUserCart();
+        navigate("/");
       })
       .catch((err) => {
-        setloading(false)
-         toast.error("An was error please try again");
-        
+        setloading(false);
+        toast.error("An was error please try again");
       });
   }
 
@@ -63,13 +55,13 @@ export default function ResetPassword() {
         email: "",
         newPassword: "",
       },
-      onSubmit: Login,
+      onSubmit: ResetPassword,
       validationSchema: validate,
     });
 
   return (
     <section className=" grid h-screen place-items-center">
-        <Helmet>
+      <Helmet>
         <title>Login</title>
       </Helmet>
       <Form
@@ -77,8 +69,10 @@ export default function ResetPassword() {
         method="post"
         className="flex flex-col p-8 gap-y-4 card w-96 bg-base-100 shadow-lg"
       >
-        <h4 className=" text-center font-bold text-3xl"> Create New Password </h4>
-
+        <h4 className=" text-center font-bold text-3xl">
+          {" "}
+          Create New Password{" "}
+        </h4>
 
         <FormInput
           type="email"
@@ -137,11 +131,8 @@ export default function ResetPassword() {
         )}
 
         <div className="mt-5">
-          <SubmitBtn isloading = {loading} text="Login" />
+          <SubmitBtn isloading={loading} text="Login" />
         </div>
-        
-      
-
       </Form>
     </section>
   );
