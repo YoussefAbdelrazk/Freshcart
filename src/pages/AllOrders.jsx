@@ -296,7 +296,7 @@ export default function AllOrders() {
   </div> */}
 
   
-<section className="py-24 relative">
+{/* <section className="py-24 relative">
   <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
     <div className="flex items-start flex-col gap-6 xl:flex-row ">
       <div className="w-full max-w-sm md:max-w-3xl xl:max-w-sm flex items-start flex-col gap-8 max-xl:mx-auto">
@@ -469,7 +469,7 @@ export default function AllOrders() {
       </div>
     </div>
   </div>
-</section>
+</section> */}
 
 
 

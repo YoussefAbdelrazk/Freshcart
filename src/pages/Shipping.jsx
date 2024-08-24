@@ -29,9 +29,9 @@ export default function Shipping() {
     setloading(true);
     customFetch
       .post(
-        `/api/v1/orders/checkout-session/${id}`,
+        `/api/v1/orders/checkout-session/${id}?url=http://localhost:5173`,
         { shippingAddress: values },
-        { headers: { token: localStorage.getItem("token") } , params: {url: "http://localhost:5173"}}
+        { headers: { token: localStorage.getItem("token") } ,}
       )
       .then((response) => {
         setloading(false);
